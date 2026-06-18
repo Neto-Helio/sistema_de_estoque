@@ -30,10 +30,10 @@ def cabeçalho(txt):
 def enter():
     input("Pressione ENTER para continuar!")
 
-def real():
+def real(txt):
     while True:
         try:
-            preco = float(input("Preço: R$ ").replace(",", "."))
+            preco = float(input(txt).replace(",", "."))
             break
         except ValueError:
             print("Digite um valor válido!")

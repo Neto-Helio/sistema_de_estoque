@@ -6,11 +6,7 @@ while True:
     r = menu(['Cadastrar Produto', 'Listar Produtos', 'Buscar Produto', 'Entrada de Estoque', 'Saída de Estoque', 'Atualizar Produto', 'Remover Produto', 'Relatório de Estoque Baixo', 'Sair'])
     if r == 1:
         cabeçalho('Cadastrar produto')
-        n = input("Produto: ")
-        m = input("Marca: ")
-        q = int(input("Quantidade: "))
-        p = real()
-        cadastrar(n, m, q, p)
+        cadastrar()
         enter()
     elif r == 2:
         cabeçalho('Listar Produtos')

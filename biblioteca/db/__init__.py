@@ -13,12 +13,30 @@ quantidade INTEGER NOT NULL,
 preco REAL NOT NULL
 )""")
 
-def cadastrar(n, m, q, p):
-    cursor.execute(""" INSERT INTO produtos
-    (produto, marca, quantidade, preco)
-    VALUES (?, ?, ?, ?) """, (n, m, q, p))
-    conexao.commit()
-    print(f"O produto {n} foi cadastrado com sucesso!")
+def cadastrar():
+    while True:
+        n = input("Produto (Digite SAIR para cancelar): ")
+        if n.lower() == 'sair':
+            print("Cadastro cancelado!!")
+            break
+        m = input("Marca (Digite SAIR para cancelar): ")
+        if m.lower() == 'sair':
+            print("Cadastro cancelado!!")
+            break
+        q = int(input("Quantidade (Digite 0 para cancelar): "))
+        if q == 0:
+            print("Cadastro cancelado!!")
+            break
+        p = real('Preço (Digite 0 para cancelar): ')
+        if p == 0:
+            print("Cadastro cancelado!!")
+            break
+        cursor.execute(""" INSERT INTO produtos
+        (produto, marca, quantidade, preco)
+        VALUES (?, ?, ?, ?) """, (n, m, q, p))
+        conexao.commit()
+        print(f"O produto {n} foi cadastrado com sucesso!")
+        break
 
 def listar():
     cursor.execute("""SELECT * FROM produtos""")
@@ -214,37 +232,60 @@ def buscar_id():
         print("ID não encontrado.")
 
 def buscar():
-    r = menu_2('Escolha como buscar', ['Produto', 'Marca', 'ID'])
+    r = menu_2('Escolha como buscar', ['Produto', 'Marca', 'ID', 'Sair'])
     if r == 1:
         buscar_produto()
     elif r == 2:
         buscar_marca()
     elif r == 3:
         buscar_id()
+    elif r == 4:
+        print("Busca cancelada!")
 
 def entrada():
-    nq = leiaint('Adicionar: ')
-    id = leiaint('ID: ')
-    cursor.execute("""UPDATE produtos 
-    SET quantidade = quantidade + ?
-    WHERE id = ?""", (nq, id))
-    conexao.commit()
-    print("Adicionado com sucesso!")
+    while True:
+        print("Digite 0 para cancelar a operação!")
+        nq = leiaint('Adicionar: ')
+        if nq == 0:
+            print("Operação Cancelada")
+            break
+        id = leiaint('ID: ')
+        if id == 0:
+            print("Operação Cancelada")
+            break
+        cursor.execute("""UPDATE produtos 
+        SET quantidade = quantidade + ?
+        WHERE id = ?""", (nq, id))
+        conexao.commit()
+        print("Adicionado com sucesso!")
+        break
 
 def saida():
-    nq = leiaint('Retirar: ')
-    id = leiaint('ID: ')
-    cursor.execute("""UPDATE produtos 
-    SET quantidade = quantidade - ?
-    WHERE id = ?""", (nq, id))
-    conexao.commit()
-    print("Retirado com sucesso!")
+    while True:
+        print("Digite 0 para cancelar a operação!")
+        nq = leiaint('Retirar: ')
+        if nq == 0:
+            print("Operação Cancelada")
+            break
+        id = leiaint('ID: ')
+        if id == 0:
+            print("Operação Cancelada")
+            break
+        cursor.execute("""UPDATE produtos 
+        SET quantidade = quantidade - ?
+        WHERE id = ?""", (nq, id))
+        conexao.commit()
+        print("Retirado com sucesso!")
+        break
 
 def atualizar():
 
     while True:
-
+        print("Digite 0 no ID para cancelar a operação!")
         id_produto = leiaint("ID: ")
+        if id_produto == 0:
+            print("Operação cancelada!")
+            return
 
         cursor.execute(
             "SELECT * FROM produtos WHERE id = ?",
@@ -344,8 +385,11 @@ def atualizar():
 def remover():
 
     while True:
-
+        print("Digite 0 no ID para cancelar a operação!")
         id_produto = leiaint("ID: ")
+        if id_produto == 0:
+            print("Operação cancelada!")
+            return
 
         cursor.execute(
             "SELECT * FROM produtos WHERE id = ?",
