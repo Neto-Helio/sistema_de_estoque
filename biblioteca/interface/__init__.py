@@ -1,3 +1,10 @@
+import os
+
+def limpar_tela():
+    # 'nt' é o nome interno do Windows no módulo os
+    # Se for Windows, roda 'cls', senão roda 'clear' (Linux/Mac)
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def leiaint(msg):
     while True:
         try:

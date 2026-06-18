@@ -1,7 +1,7 @@
-from biblioteca.interface import *
 from biblioteca.db import *
 
 while True:
+    limpar_tela()
     alerta_estoque()
     r = menu(['Cadastrar Produto', 'Listar Produtos', 'Buscar Produto', 'Entrada de Estoque', 'Saída de Estoque', 'Atualizar Produto', 'Remover Produto', 'Relatório de Estoque Baixo', 'Sair'])
     if r == 1:
